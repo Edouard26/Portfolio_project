@@ -1,5 +1,5 @@
 """
-ASGI config for machine_learning project.
+ASGI config for my-educational-website.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
