@@ -17,3 +17,10 @@ class Article(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Videos(models.Model):
+    title = models.CharField(max_length=100)
+    url = models.URLField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
