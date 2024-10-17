@@ -1,0 +1,25 @@
+# Ignore Python bytecode files
+*.pyc
+__pycache__/
+
+# Ignore virtual environment directories
+venv/
+env/
+
+# Ignore Django migration files
+*/migrations/*.py
+*/migrations/*.pyc
+
+# Ignore database files
+*.sqlite3
+
+# Ignore environment variable files
+.env
+
+# Ignore settings.py file
+server/settings.py
+
+# Ignore other files and directories
+node_modules/
+dist/
+build/
