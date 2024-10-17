@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
 class User(models.Model):
     pseudo = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100, default='Doe')
@@ -22,5 +22,3 @@ class Videos(models.Model):
     title = models.CharField(max_length=100)
     url = models.URLField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
