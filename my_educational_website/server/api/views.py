@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Article, Videos
+from .models import User, Articles, Videos
 from .serializer import UserSerializer, ArticleSerializer, VideosSerializer
 
 @api_view(['GET'])
@@ -42,7 +42,7 @@ def user_detail(request, pk):
     
 @api_view(['GET'])
 def get_articles(request):
-    articles = Article.objects.all()
+    articles = Articles.objects.all()
     serializer = ArticleSerializer(articles, many = True)
     return Response(serializer.data)
 
@@ -57,8 +57,8 @@ def create_article(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def article_detail(request, pk):
     try:
-        article = Article.objects.get(pk=pk)
-    except Article.DoesNotExist:
+        article = Articles.objects.get(pk=pk)
+    except Articles.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':

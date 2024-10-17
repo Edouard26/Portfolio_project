@@ -13,10 +13,13 @@ class User(models.Model):
         return self.pseudo
 
 
-class Article(models.Model):
+class Articles(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
 
 class Videos(models.Model):
     title = models.CharField(max_length=100)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Article, User, Videos
+from .models import Articles, User, Videos
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Article
+        model = Articles
         fields = '__all__'
 
 class VideosSerializer(serializers.ModelSerializer):
