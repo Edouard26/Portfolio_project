@@ -4,10 +4,11 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [Articles, setArticles] = useState([]);
-  const [ArticleTitle, setArticleTitle] = useState('');
-  const [ArticleAuthor, setArticleAuthor] = useState('');
-  const [ArticleContent, setArticleContent] = useState('');
+  const [articles, setArticles] = useState([]);
+  const [articleTitle, setArticleTitle] = useState('');
+  const [articleAuthor, setArticleAuthor] = useState('');
+  const [articleContent, setArticleContent] = useState('');
+  const [editingArticle, setEditingArticle] = useState(null);
 
   useEffect(() => {
     fetchArticles();
@@ -24,7 +25,7 @@ function App() {
   };
 
   const addArticle = async () => {
-    const newArticle = { title: ArticleTitle, content: ArticleContent, author: ArticleAuthor };
+    const newArticle = { title: articleTitle, content: articleContent, author: articleAuthor };
     try {
       const response = await fetch("http://127.0.0.1:8000/api/articles/create", {
         method: 'POST',
@@ -44,6 +45,35 @@ function App() {
     }
   };
     
+  const updateArticle = async () => {
+    const updatedArticle = { title: articleTitle, content: articleContent, author: articleAuthor };
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/articles/${editingArticle.id}/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedArticle),
+      });
+      if (response.ok) {
+        fetchArticles();
+        setArticleTitle('');
+        setArticleAuthor('');
+        setArticleContent('');
+        setEditingArticle(null);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const startEditing = (article) => {
+    setArticleTitle(article.title);
+    setArticleAuthor(article.author);
+    setArticleContent(article.content);
+    setEditingArticle(article);
+  };
+
   return (
     <>
       <h1> ML-Explorer </h1>
@@ -52,28 +82,33 @@ function App() {
         <input 
           type="text" 
           placeholder="Article Name"
-          value={ArticleTitle}
+          value={articleTitle}
           onChange={(e) => setArticleTitle(e.target.value)}
         />
         <input 
           type="text" 
           placeholder="Article Author"
-          value={ArticleAuthor}
+          value={articleAuthor}
           onChange={(e) => setArticleAuthor(e.target.value)} 
         />
         <textarea
           placeholder="Article Content"
-          value={ArticleContent}
+          value={articleContent}
           onChange={(e) => setArticleContent(e.target.value)}
         />
+        {editingArticle ? (
+          <button onClick={updateArticle}>Update Article</button>
+        ) : (
         <button onClick={addArticle}>Add Article</button>
+        )}
       </div>
 
-      {Articles.map((article) => (
+      {articles.map((article) => (
         <div key={article.id}> 
           <p>Title: {article.title}</p>
           <p>Author: {article.author}</p>
           <p>Content: {article.content}</p>
+          <button onClick={() => startEditing(article)}>Edit</button>
         </div> 
       ))}
     </>
