@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
@@ -67,6 +65,19 @@ function App() {
     }
   };
 
+  const deleteArticle = async (articleId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/articles/${articleId}/`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        fetchArticles();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const startEditing = (article) => {
     setArticleTitle(article.title);
     setArticleAuthor(article.author);
@@ -109,6 +120,7 @@ function App() {
           <p>Author: {article.author}</p>
           <p>Content: {article.content}</p>
           <button onClick={() => startEditing(article)}>Edit</button>
+          <button onClick={() => deleteArticle(article.id)}>Delete</button>
         </div> 
       ))}
     </>
