@@ -111,3 +111,4 @@ def video_detail(request, pk):
     elif request.method == 'DELETE':
         video.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+  
