@@ -1,6 +1,9 @@
 from django.urls import path
 from .views import get_users, create_user, user_detail, get_articles, create_article, article_detail, get_videos, create_video, video_detail
-
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path('users/', get_users, name='get_users'),
@@ -12,4 +15,5 @@ urlpatterns = [
     path('videos/', get_videos, name='get_videos'),
     path('videos/create', create_video, name='create_video'),
     path('videos/<int:pk>/', video_detail, name='video_detail'),
+    
 ]

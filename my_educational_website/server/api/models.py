@@ -7,7 +7,6 @@ class User(models.Model):
     firstname = models.CharField(max_length=100, default='John')
     age = models.IntegerField()
     email = models.EmailField(max_length=100, default='user@example.com')
-    
 
     def __str__(self):
         return self.pseudo
